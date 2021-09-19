@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>책 원해?</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!--   구글 폰트 : 이것만 써도 되는 듯?-->
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <style type=text/css>
+        .wrap {
+            width: 900px;
+            margin: auto;
+        }
+
+        * {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .title {
+
+
+        }
+
+        .card {
+            background-position: center;
+            border-radius: 10px;
+            text-align: center;
+            padding-top: 40px;
+            width: 500px;
+            height: 300px;
+            margin: auto;
+        }
+
+        h1, h5 {
+            margin-bottom: 20px;
+
+            display: inline;
+        }
+
+        .hostbox {
+            padding: 20px;
+            margin: auto;
+            width: 800px;
+            border: 1px solid;
+
+
+        }
+
+        .order {
+            text-align: center;
+        }
+
+
+    </style>
+
+     <script>
+        function order() {
+            alert('주문이 완료되었습니다');
+            // 여기에 코드를 작성하세요.
+        }
+
+    </script>
+
+
+</head>
+<body>
+<div class="wrap">
+    <div class="hostbox">
+        <div class="form-group ">
+            <div class="card">
+
+                    <img class="card-img-top"
+                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIQTR4bAn32wgrRDdWOPlUHwT0swp9yedGAw&usqp=CAU"
+                         alt="Card image cap">
+
+
+            </div>
+
+
+            <div class="title">
+                <h1>상품 제목</h1>
+                <h5>가격:20,000원/권</h5>
+                <p> 독일의 대학에서 외국인이 학업을 하고자 하는 경우 각 대학에서 치르는 독일어 어학 능력 시험에 합격해야 한다. 이 시험을 ‘DSH’라고 하는데 이는 ‘Die Deutsche Sprachprufung fur den Hochschulzugang(대학 입학을 위한 독일어 어학시험)’의 약어이다. 이 책은 독일의 대학에 입학하기 위하여 어학 시험을 준비하고 있는 유학생에게 도움을 주려는 의도로 쓰여졌다. </p>
+                <h1>
+                    주문하기
+                </h1>
+
+
+                <p>
+                    주문자 성함: <input type="text">
+                </p>
+
+
+                <div class="n">
+                    수량:
+                    <select name="custom-select" id="order-count">
+                        <option selected value=""> 권 수 선택</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+
+
+                <p>
+                    주소: <input type="text">
+                </p>
+
+                <p>
+                    전화번호: <input type="tel">
+                </p>
+            </div>
+
+            <div class="order">
+                <button onclick="order()" type="button" class="btn btn-primary">주문하기</button>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

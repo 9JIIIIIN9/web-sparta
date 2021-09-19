@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery 연습하고 가기!</title>
+
+    <!-- JQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        div.question-box {
+            margin: 10px 0 20px 0;
+        }
+    </style>
+
+    <script>
+
+          $(document).ready(function () {
+            // after body
+            $('#input-name').keydown(function (event) {
+                if (event.key === 'Enter') {
+                    showName();
+                }
+            });
+        });
+
+
+        //이벤트는 랜더링 될 때 처음부터 실행이 되어있는 상태여야 함
+        //파라미터 없음 왜냐면 keydown 이 자동적으로 넣어줌
+        //엔터를 눌렀을 때의 조치
+        //========================================================
+        // $('#input-name').keydown(function(key){
+        //     console.log('key',key);
+        // });
+        //
+        //브라우저 순서
+        //위에서 아래로 실행돼 근데 아직 바디가 랜더링이 안되어있어 그래서 위에 ===이후 코드 에서 key이벤트는 실행이 안돼
+        //해결방법은?
+
+        //버튼 눌렀을 때의 액션
+        function showName() {
+            //재할당할 일이 거의 없기 때문에 const
+            //일단 거의 const 로 하고 거기서 재할당해야하는 것만 let 으로 풀어주는 게 좋음!
+
+            const inputName = $('#input-name');
+            const names = $('#names');
+            const name = inputName.val();
+            //===를 쓰는ㄴ 습관 들여(자료형까지 비교)
+            if (name === '') {
+                alert('이름을 입력해주세요');
+                //return 을 안넣게 되면 alert 창 뜨더라도 뒤에꺼 실행되버림
+                //여기서 아예 끝내버리기
+                //이게 싫으면 아래 로직을 else 로 빼는 방법도 있음
+                return;
+            }
+
+            const tempHtml = <Li>${name}</Li>
+            //부모인 names에 붙여준 것
+            names.append(tempHtml);
+            //input 을 비워주는 것
+            inputName.val('');
+            //다시 inputtext에 커서가 가게끔
+            inputName.focus();
+
+            // 1. input-name 값을 가져온다.
+            // 2. 가져온 값을 이용해 names에 붙일 태그를 만든다. (let tempHtml = `<li>박르</li>`)
+            // 3. 만들어둔 temp_html을 names에 붙인다.(jQuery의 $('...').append(tempHtml)을 이용하면 굿!)
+        }
+
+
+        function removeNames() {
+            // 1. names의 내부 태그를 모두 비운다.(jQuery의 $('....').empty()를 이용하면 굿!)
+            $('#names').empty();
+            $('#input-name').focus();
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+<h1>jQuery + Javascript의 조합을 연습하자!</h1>
+
+<div class="question-box">
+    <h2>HTML 붙이기/지우기 연습</h2>
+    <h5>1. 이름을 입력하면 아래 나오게 하기</h5>
+    <h5>2. 다지우기 버튼을 만들기</h5>
+    <input id="input-name" type="text" placeholder="여기에 이름을 입력"/>
+    <button onclick="showName()">이름 붙이기</button>
+    <button onclick="removeNames()">다지우기</button>
+    <ul id="names">
+        <li>김스파</li>
+        <li>박르탄</li>
+    </ul>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HJ bootstrap 첫 활용</title>
+
+    <!--    부트스트랩은 디자인되어있던 것을 가져와서 쓰는 것-완성도 높은 디자인크으으 이건그냥 가져와서 써 디자인까지 힘 쓸 필요 없으니께,,,ㅎ-->
+    <!--    min은 압축한 파일 형식임.(띄어쓰기 이런 거 다 압축한 거야)-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!--    폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <style>
+        /*모든 태그 폰트에 적용*/
+        * {
+            font-family: 'Black Han Sans', sans-serif;
+        }
+
+        .wrap {
+            width: 900px;
+            margin: auto;
+
+        }
+
+        .comment {
+            color: lightblue;
+            font-weight: bold;
+        }
+
+        /*코멘트 창*/
+        .hostbox {
+            width: 350px;
+            border: 3px solid black;
+            padding: 40px;
+            margin: auto;
+
+            /*아래와의 여백*/
+            margin-bottom: 30px;
+
+
+        }
+    </style>
+
+    <script>
+        function sayHello() {
+            alert('안녕!');
+            console.log('hello')
+        }
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="jumbotron">
+        <h1 class="display-4">나홀로 링크 메모장!</h1>
+        <p class="lead">중요한 링크를 저장해두고, 나중에 볼 수 있는 공간입니다
+
+
+        </p>
+        <hr class="my-4">
+        <p class="lead">
+            <a onclick="sayHello()" class="btn btn-primary btn-lg" href="#" role="button">포스팅박스 열기</a>
+        </p>
+    </div>
+    <div class="hostbox">
+
+
+        <div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">아티클 url</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" aria-describedby="emailHelp"
+                >
+                <small id="emailHelp" class="form-text text-muted">
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">간단한 코멘트</label>
+                <input type="password" class="form-control" id="exampleFormControlTextarea1">
+            </div>
+
+            <button type="submit" class="btn btn-primary">기사저장</button>
+        </div>
+
+    </div>
+
+
+    <div class="card-columns">
+        <div class="card">
+            <img class="card-img-top" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <!--                파란색 줄 그어지는 거-->
+                <a class="card-title" href="">여기에 기사제목이 들어갑니다.</a>
+
+
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <!--                파란색 줄 그어지는 거-->
+                <a class="card-title" href="">여기에 기사제목이 들어갑니다.</a>
+
+
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <!--                파란색 줄 그어지는 거-->
+                <a class="card-title" href="">여기에 기사제목이 들어갑니다.</a>
+
+
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <!--                파란색 줄 그어지는 거-->
+                <a class="card-title" href="">여기에 기사제목이 들어갑니다.</a>
+
+
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <!--                파란색 줄 그어지는 거-->
+                <a class="card-title" href="">여기에 기사제목이 들어갑니다.</a>
+
+
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <!--                파란색 줄 그어지는 거-->
+                <a class="card-title" href="">여기에 기사제목이 들어갑니다.</a>
+
+
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다.</p>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
+

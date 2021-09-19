@@ -1,0 +1,27 @@
+     /*   *는 모든 태그에 이 폰트 적용하겠다.*/
+        *{
+            font-family: 'Jua', sans-serif;
+
+        }
+
+        .login_title {
+            background-image: url("https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg");
+            color: white;
+            background-size: cover; /*적절히 비율 맞춰줘*/
+            background-position: center; /*가운데 정렬*/
+            width: 300px;
+            height: 200px;
+            /*text_align :center;*/
+            /*padding-top : 40px;   */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrap {
+            width: 300px;
+            margin: 10px auto;
+            /*!*위아래10, 좌우 auto   auto는 좌우 영역 즉 마진을 반반 나눠줘라 단 사이즈가 width 300처럼 정해져 있어야 함* /*/
+        }
+
