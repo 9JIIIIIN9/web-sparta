@@ -11,4 +11,5 @@ for gu_info in gu_infos :
         print(gu_info['MSRSTE_NM'], gu_info['PM10'])
 
 # 값을 출력
+###
 #print(city_air['RealtimeCityAir']['row'])
