@@ -1,16 +1,14 @@
 # web-sparta
 
-
+>이현진
 
 ## 🎈 Features
 
-- Pycharm 사용
+- JetBrains의 Pycharm 개발 툴 사용
 
 - 스파르타 웹 실무
 
-- 
 
-- 
 
 ### <br/>
 
