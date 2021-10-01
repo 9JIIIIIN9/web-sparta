@@ -61,13 +61,22 @@
                     const articles = response['articles'];
                     for (let i = 0; i < articles.length; i++) {    //fori 누르고 탭 하면 자동완선
                         const article = articles[i]
-                        console.log(article);   //124개의 배열이 넘어올 것(콘솔에서 확인해봐)
-                        const tempHtml = <div class="card">
-                            //안에 코드는 3week  에 첫 코ㅡ 캡쳐 사진임.그거 보고 해봐
-                        </div>
+                        //console.log(article);   //124개의 배열이 넘어올 것(콘솔에서 확인해봐)
+                        const tempHtml = `<div class="card">
+    <img class="card-img-top" src="${image}" alt="Card image cap">
+    <div class="card-body">
+      <a href="${url}" target="_blank" class="card-title">${title}</a>
+      <p class="card-text">${desc}</p>
+      <p class="card-text comment">${comment}</p>
+    </div>
+  </div>`;
+                        $("#cards-box").append(tempHtml);
                     }
+
+
                 }
             });
+
         }
 
         function openClose() {

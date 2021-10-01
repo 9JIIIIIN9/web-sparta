@@ -17,6 +17,7 @@ soup = BeautifulSoup(data.text, 'html.parser')
 trs=soup.select('#old_content > table > tbody > tr')
 #이건 console selector 에서 qhrtkgotj rkwudhsms rjt
 
+
 for tr in trs:
     a_tag = tr.select_one('td.title>div>a')
     if a_tag is not None:
