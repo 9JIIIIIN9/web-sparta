@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>Title</title>
+    </head>
+    <body>
+        <h1>서버를 만들었다!</h1>
+        <img src="{{ url_for('static', filename='rome.jpg') }}"/>
+    <img src="/static/rome.jpg"/>
+    </body>
+</html>
+<!--실행할 때  app 에서 localhost:5000 해야 이미지가 나옴-->
+<!--그냥 index.html 을 실행하면 이미지 파일이 안뜨는데 이거 왜 이러는 거..?-->
+
