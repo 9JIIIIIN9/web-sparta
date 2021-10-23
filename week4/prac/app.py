@@ -34,7 +34,7 @@ def test_get():
 
 @app.route('/test', methods=['POST'])
 def test_post():
-    title_receive = request.form['title_give']
+    title_receive = request.form.get('title_give')
     # 둘 다 사용 가능
     #둘의 차이점 : ...은 잘 모르겠고 아래껄로 쓰는 게 낫대
     #title_receive = request.form.get('title_give')

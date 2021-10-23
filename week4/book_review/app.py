@@ -38,10 +38,15 @@ def write_review():
 
 @app.route('/review', methods=['GET'])
 def read_reviews():
-    data = db.reviews.find({}, {"_id": False})
+    # 모든 데이터 불러오기(find)
+    #_id : false 라는 것은 여기 데이터는 가져오지 않겠다는 것
+
+    # 이거 data list 처리 안해줘서 오류 났었음ㅠㅠ 더 공부해야겠다 진짜....
+    data = list(db.reviews.find({}, {"_id": False}))
     print(data)
     return jsonify({'result': 'success', 'data': data})
 
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+

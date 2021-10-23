@@ -28,7 +28,7 @@
             // 첫 페이지가 로딩되면
             // 밑에.html 은 .empty 와 같음
             $(document).ready(function () {
-                $("#reviews-box").html("");
+                $("#reviews-box").empty();
                 showReview();
             });
 
@@ -38,12 +38,14 @@
                 const title = $('#title').val();
                 const author = $('#author').val();
                 const review = $('#bookReview').val();
+                console.log(title, author, review);
+
                 // 유효성 검사
                 if (title===''){
                     alert('write title');
                     $('#title').focus();
                     return;
-                } else if(author==''){
+                } else if(author===''){
                     alert('write author');
                     $('#author').focus();
                     return;
@@ -52,7 +54,6 @@
                     $('#bookReview').focus();
                     return;
                 }
-                // console.log(title,author,review);
                 // 2. 제목, 저자, 리뷰 중 하나라도 입력하지 않았을 경우 alert를 띄웁니다.
                 // 3. POST /review 에 저장을 요청합니다.
                 $.ajax({
@@ -71,7 +72,7 @@
                         if (response["result"] === "success") {
                             alert(response["msg"]);
                             // 새로 고침해라
-                            // window.location.reload();
+                            window.location.reload();
                         }
                     }
                 })
@@ -86,9 +87,11 @@
                     url: "/review",
                     data: {},
                     success: function (response) {
-                        if (response["result"] == "success") {
-                            const dataList = console.log(response["data"])
-                            for (let i = 0; i < data.length; i++) {
+
+                        if (response["result"] === "success") {
+                            const dataList = response['data'];
+                            //이거 for문 안에 그냥 data 라고 써서 계속 쓴 리뷰들이 안나왔다....진짜 겨우 발견했네ㅠㅠㅠㅠ후
+                            for (let i = 0; i < dataList.length; i++) {
                                 const data = dataList[i]
                                 // < 가 뭐 하나 잘못됐나봐...에휴
                                 const tempHtml =`<tr>
@@ -140,56 +143,56 @@
         </style>
     </head>
 
-    <body>
-        <div class="container" style="max-width: 600px;">
-            <img src="https://image.freepik.com/free-vector/large-bookcase-with-books-library-book-shelf-interior_92863-357.jpg"
-                 class="img-fluid" alt="Responsive image">
-            <div class="info">
-                <h1>읽은 책에 대해 말씀해주세요.</h1>
-                <p>다른 사람을 위해 리뷰를 남겨주세요! 다 같이 좋은 책을 읽는다면 다 함께 행복해질 수 있지 않을까요?</p>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">제목</span>
-                    </div>
-                    <input type="text" class="form-control" id="title">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">저자</span>
-                    </div>
-                    <input type="text" class="form-control" id="author">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">리뷰</span>
-                    </div>
-                    <textarea class="form-control" id="bookReview"
-                              cols="30"
-                              rows="5" placeholder="140자까지 입력할 수 있습니다." onkeyup="validateLength(this)"></textarea>
-                </div>
-                <div class="review">
-                    <button onclick="makeReview()" type="button" class="btn btn-primary">리뷰 작성하기</button>
-                </div>
+<body>
+<div class="container" style="max-width: 600px;">
+    <img src="https://image.freepik.com/free-vector/large-bookcase-with-books-library-book-shelf-interior_92863-357.jpg"
+         class="img-fluid" alt="Responsive image">
+    <div class="info">
+        <h1>읽은 책에 대해 말씀해주세요.</h1>
+        <p>다른 사람을 위해 리뷰를 남겨주세요! 다 같이 좋은 책을 읽는다면 다 함께 행복해질 수 있지 않을까요?</p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">제목</span>
             </div>
-            <div class="reviews">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">제목</th>
-                        <th scope="col">저자</th>
-                        <th scope="col">리뷰</th>
-                    </tr>
-                    </thead>
-                    <tbody id="reviews-box">
-                    <tr>
-                        <td>왕초보 8주 코딩</td>
-                        <td>김르탄</td>
-                        <td>역시 왕초보 코딩교육의 명가답군요. 따라하다보니 눈 깜짝할 사이에 8주가 지났습니다.</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <input type="text" class="form-control" id="title">
         </div>
-    </body>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">저자</span>
+            </div>
+            <input type="text" class="form-control" id="author">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">리뷰</span>
+            </div>
+            <textarea class="form-control" id="bookReview"
+                      cols="30"
+                      rows="5" placeholder="140자까지 입력할 수 있습니다." onkeyup="validateLength(this)"></textarea>
+        </div>
+        <div class="review">
+            <button onclick="makeReview()" type="button" class="btn btn-primary">리뷰 작성하기</button>
+        </div>
+    </div>
+    <div class="reviews">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">제목</th>
+                <th scope="col">저자</th>
+                <th scope="col">리뷰</th>
+            </tr>
+            </thead>
+            <tbody id="reviews-box">
+            <tr>
+                <td>왕초보 8주 코딩</td>
+                <td>김르탄</td>
+                <td>역시 왕초보 코딩교육의 명가답군요. 따라하다보니 눈 깜짝할 사이에 8주가 지났습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
 
 </html>
