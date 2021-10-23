@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 
-<!--    아니 왜 배열이 안나와,,,-->
+    <!--    아니 왜 배열이 안나와,,,-->
 
     <!--        실행확인하고 싶으면 localhost:5000 쳐봐야돼...! 이걸 잊고 있었다니-->
     <meta charset="UTF-8"/>
@@ -40,7 +40,7 @@
         });
 
         function showStar() {
-             $('#star_box').empty();
+            $('#star_box').empty();
             $.ajax({
                 type: 'GET',
                 url: '/api/list',
@@ -94,16 +94,16 @@
                 type: 'POST',
                 url: '/api/like',
                 data: {
-                    "name_give":name
+                    "name_give": name
                 },
                 success: function (response) {
                     if (response['result'] === 'success') {
-                        let msg = response['msg'];
+                        const msg = response['msg'];
                         alert(msg);
                         //이건 새로고침
                         // location.reload();
                         //이렇게 해당함수 호출하면 밑에 내용만 새로고침됨
-                        showStar()
+                        showStar();
                     }
                 }
             });
@@ -115,13 +115,13 @@
                 type: 'POST',
                 url: '/api/delete',
                 data: {
-                    'name_give':name
+                    'name_give': name
                 },
                 success: function (response) {
                     if (response['result'] === 'success') {
                         let msg = response['msg'];
                         alert(msg);
-                        location.reload();
+                        showStar();
                     }
                 }
             });
