@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<!--    한영 폰트 다르게 설정하는 법(7주차 수업 참고)-->
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@200&family=Ubuntu&display=swap');
+
+        @font-face {
+            font-family: 'Black Han Sans';
+            src: url('../static/BlackHanSans-Regular.ttf');
+            unicode-range: U+AC00-D7A3;
+        }
+
+        * {
+            font-family: 'Nanum Myeongjo', 'Ubuntu';
+
+        }
+
+        #content {
+            width: 400px;
+            margin: 30px auto;
+        }
+
+    </style>
+</head>
+<body>
+<h1>
+    hello world
+</h1>
+<h2>
+    안녕하세요
+</h2>
+</body>
+</html>
