@@ -1,37 +1,281 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
 
-<!--    이미지 위에 버튼을 올리는 법-->
-<!--    부모를 이미지로 두기-->
-<!--7주차에 있음-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+    <title>Bars & pubs</title>
+
     <style>
-        .bg-img{
-            width:200px;
-            height:200px;
-            background-image: url("https://cdn.mkhealth.co.kr/news/photo/202102/52163_52859_5928.jpg");
-            background-repeat: no-repeat;
-            background-size:cover;
-            background-position:center;
-            position: relative;
-
+        .wrap {
+            width: 900px;
+            margin: 10px auto;
         }
-
-        #cta{
-            position:absolute;
-            /*바닥에서 얼마나 떨어지게 할 건지*/
-            bottom:0;
-            right:0;
-        }
-
     </style>
-</head>
-<body>
-<div class="bg-img">
-    <button id ="cta">버튼</button>
-</div>
 
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+        <h4>Bars & Pubs</h4>
+    </div>
+    <ul class="nav-links">
+
+        <li><a href="#">
+
+            <form>
+                <select class="language">
+                    <option value="none">--- 지역 선택 ---</option>
+                    <!--      이것도 불러올 수 없을까? -->
+                    <option value="korean">강동구</option>
+                    <option value="english">양천구</option>
+                    <option value="chinese">구로구</option>
+                    <option value="spanish">금천구</option>
+                </select>
+            </form>
+        </a></li>
+
+
+        <li><a href="#">
+            <form>
+                <select class="language">
+                    <option value="none">--- 테마 선택 ---</option>
+                    <!--      이것도 불러올 수 없을까? -->
+                    <option value="korean">이자카야</option>
+                    <option value="english">펍</option>
+                    <option value="chinese">포차</option>
+                    <option value="spanish">기타</option>
+                </select>
+            </form>
+        </a></li>
+        <li><a href="#">
+            <form>
+                <select class="language">
+                    <option value="none">--- 주종 선택 ---</option>
+                    <!--      이것도 불러올 수 없을까? -->
+                    <option value="korean">막걸리</option>
+                    <option value="english">맥주</option>
+                    <option value="chinese">소주</option>
+                    <option value="spanish">칵테일</option>
+                </select>
+            </form>
+        </a></li>
+        <li><a href="#">
+            <button type="button" class="btn btn-light">검색</button>
+        </a></li>
+
+    </ul>
+
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+</nav>
+
+<script>
+    const burger = document.querySelector(".burger");
+    const nav = document.querySelector(".nav-links");
+    const navlinks = document.querySelectorAll(".nav-links li");
+
+    const navAnimation = () => {
+        navlinks.forEach((link, index) => {
+            if (link.style.animation) {
+                link.style.animation = "";
+            } else {
+                link.style.animation = `navLinkFade 0.5s ease forwards ${
+                    index / 7 + 0.5
+                }s`;
+
+            }
+        });
+    };
+
+    const handleNav = () => {
+        nav.classList.toggle("nav-active");
+        navAnimation();
+
+        burger.classList.toggle("toggle");
+    };
+
+    const navSlide = () => {
+        burger.addEventListener("click", handleNav);
+    }
+
+    const setNavTransition = (width) => {
+        if (width > 768) {
+            nav.style.transition = "";
+        } else {
+            nav.style.transition = "transform 0.5s ease-in";
+        }
+    };
+
+    const handleResize = () => {
+        const width = event.target.innerWidth;
+        setNavTransition(width);
+    };
+
+    const init = () => {
+        window.addEventListener("resize", handleResize);
+        navSlide();
+    };
+    init();
+</script>
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--  <a class="navbar-brand" href="#">Navbar</a>-->
+<!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--    <span class="navbar-toggler-icon"></span>-->
+<!--  </button>-->
+
+<!--  <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--    <ul class="navbar-nav mr-auto">-->
+<!--      <li class="nav-item active">-->
+<!--        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+<!--      </li>-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="#">Link</a>-->
+<!--      </li>-->
+<!--      <li class="nav-item dropdown">-->
+<!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--          Dropdown-->
+<!--        </a>-->
+<!--        <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--          <a class="dropdown-item" href="#">Action</a>-->
+<!--          <a class="dropdown-item" href="#">Another action</a>-->
+<!--          <div class="dropdown-divider"></div>-->
+<!--          <a class="dropdown-item" href="#">Something else here</a>-->
+<!--        </div>-->
+<!--      </li>-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link disabled" href="#">Disabled</a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--    <form class="form-inline my-2 my-lg-0">-->
+<!--      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</nav>-->
+
+네비게이션바
+<!--<div class="collapse" id="navbarToggleExternalContent">-->
+<!--    <div class="bg-dark p-4">-->
+<!--        <h5 class="text-white h4">Collapsed content</h5>-->
+<!--        <span class="text-muted">Toggleable via the navbar brand.</span>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<nav class="navbar navbar-dark bg-dark">-->
+<!--    <div class="container-fluid">-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"-->
+<!--                data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"-->
+<!--                aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--              <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--            <a class="dropdown-item" href="#">Action</a>-->
+<!--            <a class="dropdown-item" href="#">Another action</a>-->
+<!--        </button>-->
+<!--    </div>-->
+<!--</nav>-->
+
+
+<div class="wrap">
+    <div class="jumbotron">
+        <h1 class="display-4">Bars & Pubs</h1>
+        <p class="lead">술집을 추천해주는 홈페이지입니다.</p>
+        <hr class="my-4">
+        <p></p>
+
+    </div>
+
+    <div class="card-columns">
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title that wraps to a new line</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                    additional
+                    content. This content is a little bit longer.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title that wraps to a new line</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                    additional
+                    content. This content is a little bit longer.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title that wraps to a new line</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                    additional
+                    content. This content is a little bit longer.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title that wraps to a new line</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                    additional
+                    content. This content is a little bit longer.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title that wraps to a new line</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                    additional
+                    content. This content is a little bit longer.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://www.eurail.com/content/dam/images/eurail/Italy%20OCP%20Promo%20Block.adaptive.767.1535627244182.jpg"
+                 alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title that wraps to a new line</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                    additional
+                    content. This content is a little bit longer.</p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+
 </html>

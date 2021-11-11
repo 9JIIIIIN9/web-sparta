@@ -1,0 +1,136 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.language {
+    width: 250px;
+    padding: 5px 3px ;
+    border: 1px solid #999;
+    font-family: inherit;
+    background-color:#FFFFFF;
+    background: url('https://t1.daumcdn.net/cfile/tistory/99761B495C84AA8716') no-repeat 95% 50%;
+    border-radius: 0px;
+
+    appearance: none;
+    /*기존 셀렉트 박스의 화살표 없애기*/
+
+
+}
+
+.jumbotron{
+    background-image:url('https://image.ajunews.com/content/image/2021/04/28/20210428165349207642.jpg');
+    background-size: cover;
+}
+
+
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 15vh;
+    background-color: #9696e2;
+    font-family: "Poppins", sans-serif;
+}
+
+.logo {
+    color: rgb(226, 226, 226);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 18px;
+}
+
+.nav-links {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a {
+    color: rgb(226, 226, 226);
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.burger {
+. display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: rgb(226, 226, 226);
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 1024px) {
+    .nav-links {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 8vh;
+        right: 0;
+        height: 92vh;
+        background-color: #504954;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        transform: translateX(100%);
+    }
+
+    .nav-links li {
+        opacity: 0;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .nav-active {
+        transform: translateX(0%);
+    }
+
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translate(5px);
+
+        }
+        to {
+            opacity: 1;
+            transform: translate(0);
+        }
+    }
+}
+
+
+.toggle.line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.toggle.line2 {
+    opacity: 0;
+}
+
+
+.toggle.line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
