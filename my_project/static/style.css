@@ -3,15 +3,22 @@
     padding: 0px;
     box-sizing: border-box;
 }
-
+body
+{
+  background-color: #fad0c4;
+}
+.search{
+    width:100px;
+}
 .choose {
     width: 250px;
     padding: 5px 3px;
     border: 1px solid #999;
     font-family: inherit;
-    background-color: #FFFFFF;
+    background-color: #dbb195;
     font-color : #000000;
-
+    color:#dbb195;
+    font-weight: bold;
     background: url('https://t1.daumcdn.net/cfile/tistory/99761B495C84AA8716') no-repeat 95% 50%;
     border-radius: 0px;
     opacity: 1;
@@ -26,20 +33,31 @@
 /*    background-size: cover;*/
 /*}*/
 
+/*https://coder-coder.com/background-image-opacity/*/
 
 nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 50vh;
-    background-color: #9696e2;
-    background-image: url('https://img.lovepik.com/photo/50011/5863.jpg_wh860.jpg');
+    height: 50vh;
+    /*background-color: #9696e2;*/
 
-    opacity: 0.7;
 
     font-family: "Poppins", sans-serif;
 }
 
+nav::before {
+    content: "";
+    background-image: url('https://img.siksinhot.com/place/1527821332525173.jpg?w=536&h=255&c=Y.jpg');
+    opacity: 0.7;
+    background-size: cover;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 50vh;
+    left: 0;
+}
 .logo {
     color: #000000;
     font-weight: bold;
