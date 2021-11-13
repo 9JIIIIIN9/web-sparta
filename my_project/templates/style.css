@@ -4,39 +4,45 @@
     box-sizing: border-box;
 }
 
-.language {
+.choose {
     width: 250px;
-    padding: 5px 3px ;
+    padding: 5px 3px;
     border: 1px solid #999;
     font-family: inherit;
-    background-color:#FFFFFF;
+    background-color: #FFFFFF;
+    font-color : #000000;
+
     background: url('https://t1.daumcdn.net/cfile/tistory/99761B495C84AA8716') no-repeat 95% 50%;
     border-radius: 0px;
-
+    opacity: 1;
     appearance: none;
     /*기존 셀렉트 박스의 화살표 없애기*/
 
 
 }
 
-.jumbotron{
-    background-image:url('https://image.ajunews.com/content/image/2021/04/28/20210428165349207642.jpg');
-    background-size: cover;
-}
-
+/*.jumbotron {*/
+/*    background-image: url('https://image.ajunews.com/content/image/2021/04/28/20210428165349207642.jpg');*/
+/*    background-size: cover;*/
+/*}*/
 
 
 nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 15vh;
+    min-height: 50vh;
     background-color: #9696e2;
+    background-image: url('https://img.lovepik.com/photo/50011/5863.jpg_wh860.jpg');
+
+    opacity: 0.7;
+
     font-family: "Poppins", sans-serif;
 }
 
 .logo {
-    color: rgb(226, 226, 226);
+    color: #000000;
+    font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 18px;

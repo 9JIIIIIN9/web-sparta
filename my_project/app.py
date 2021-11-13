@@ -1,12 +1,17 @@
 import jwt
 import hashlib
+import requests
+
 from functools import wraps
 from datetime import datetime, timedelta
 from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request, redirect, url_for, g, make_response
 
-app = Flask(__name__)
 
+app = Flask(__name__)
+# 네이버 지도 api
+response_data = requests.get(' https://openapi.naver.com/v1/search/local')
+#https://m.map.naver.com/search2/search.naver?query==마포구%20술집&sm=hty&style=v5
 # mongodb
 client = MongoClient('localhost', 27017)
 db = client.dbsparta
@@ -16,6 +21,11 @@ db = client.dbsparta
 SECRET_KEY = 'hello world'
 COOKIE_KEY = 'token_give'
 
+city_air = response_data.json()
+gu_infos = city_air['RealtimeCityAir']['row']
+for gu_info in gu_infos :
+    if gu_info['PM10']<20:
+        print(gu_info['MSRSTE_NM'], gu_info['PM10'])
 
 
 def login_required(f):
