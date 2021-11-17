@@ -45,14 +45,17 @@
 
         <li><a href="#">
 
+
             <form>
-                <select class="choose">
+                <select name="choose_region" id="choose_region">
                     <option value="none">--- 지역 선택 ---</option>
                     <!--      이것도 불러올 수 없을까? -->
-                    <option value="kang">강동구</option>
-                    <option value="yang">양천구</option>
-                    <option value="guro">구로구</option>
-                    <option value="geum">금천구</option>
+                    <option value="강동구">강동구</option>
+                    <option value="양천구">양천구</option>
+                    <option value="구로구" selected>구로구</option>
+                    <option value="금천구">금천구</option>
+
+
                 </select>
             </form>
         </a></li>
@@ -60,22 +63,22 @@
 
         <li><a href="#">
             <form>
-                <select class="choose">
+                <select class="choose_thema">
                     <option value="none">--- 테마 선택 ---</option>
                     <!--      이것도 불러올 수 없을까? -->
-                    <option value="iza">이자카야</option>
-                    <option value="traditional">전통,민속주점</option>
-                    <option value="pub">포차</option>
-                    <option value="bar">바</option>
+                    <option value="이자카야">이자카야</option>
+                    <option value="전통,민속주점">전통,민속주점</option>
+                    <option value="포차">포차</option>
+                    <option value="바">바</option>
                 </select>
             </form>
         </a></li>
 
 
         <li>
-             <p class="search">
-            <button type="button" class="btn btn-light">검색</button>
-        </p>
+            <p class="search">
+                <button type="button" class="btn btn-light">검색</button>
+            </p>
         </li>
 
     </ul>
@@ -90,11 +93,62 @@
 
 <script>
 
+    // select box Name로 접근하여 선택된 값 읽기
+    alert("선택된 값 불러오기:"+$("select[name=choose_region]").val());
+
+    // 옵션 선택값 가져오기
+    var target = document.getElementById("choose_region");
+    var category_type = document.getElementById(".choose_thema");
+    alert('선택된 옵션 text 값 : ' + target.options[target.selectedIndex].text);
+    alert('선택된 옵션 value 값 : ' + target.options[target.selectedIndex].value);
+
     $(document).ready(function () {
-        $("#cards-box").empty();
-        showPost();
+        $("#cards-box").html();
+        showPub();
     });
 
+    function postPub() {
+        let url = $("#post-url").val();
+        let comment = $("#post-comment").val();
+
+
+        $.ajax({
+            type: "POST", // POST 방식으로 요청하겠다.
+            url: "/postPub",
+            data: {url_give: url, comment_give: comment}, // 데이터를 주는 방법
+            success: function (response) { // 성공하면
+                if (response["result"] == "success") {
+                    alert("포스팅 성공!");
+                    // 3. 성공 시 페이지 새로고침하기
+                    window.location.reload();
+                } else {
+                    alert("서버 오류!")
+                }
+            }
+        })
+    }
+
+    function showPub() {
+        $.ajax({
+            type: "GET",
+            url: "/showPub",
+            data: {keyword: '{{where}}' + '{{what}}'},
+            success: function (response) {
+                let articles = response[""];
+                console.log();
+                if (respond['result'] === 'success') {
+                    let list = response['list'];
+                }
+                for (let i = 0; i < list.length; i++) {
+                    const place = list[i];
+
+
+                    $('#showPlace').append(tempHtml);
+                }
+                makePub([i]["image"], [i]["url"], articles[i]["title"], articles[i]["desc"], articles[i]["comment"]);
+            }
+        })
+    }
 
     const burger = document.querySelector(".burger");
     const nav = document.querySelector(".nav-links");
@@ -146,13 +200,7 @@
 
 
 <div class="wrap">
-    <!--    <div class="jumbotron">-->
-    <!--        <h1 class="display-4">Bars & Pubs</h1>-->
-    <!--        <p class="lead">술집을 추천해주는 홈페이지입니다.</p>-->
-    <!--        <hr class="my-4">-->
-    <!--        <p></p>-->
 
-    <!--    </div>-->
 
     <div class="card-columns">
         <div class="card">

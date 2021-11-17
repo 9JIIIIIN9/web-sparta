@@ -1,149 +1,85 @@
-import jwt
-import hashlib
+from flask import Flask, render_template, jsonify, request
 import requests
-
-from functools import wraps
-from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
 from pymongo import MongoClient
-from flask import Flask, render_template, jsonify, request, redirect, url_for, g, make_response
-
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 # 네이버 지도 api
-response_data = requests.get(' https://openapi.naver.com/v1/search/local')
+
 #https://m.map.naver.com/search2/search.naver?query==마포구%20술집&sm=hty&style=v5
+
+#query=술집
+##영화 : old_content > table > tbody > tr:nth-child(2) > td.title > div > a
 # mongodb
+
+
+category_region = '지역';
+category_type = '분위기 및 주종';
+
 client = MongoClient('localhost', 27017)
 db = client.dbsparta
+url = 'https://openapi.naver.com/v1/search/local.json?=query{}'
+headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+data = requests.get(url, headers=headers)
+soup = BeautifulSoup(data.text, 'html.parser')
 
-# jwt secret key
-# 임의로 넣어준 것 - hash 할 때 같이 암호화하는 거래
-SECRET_KEY = 'hello world'
-COOKIE_KEY = 'token_give'
-
-city_air = response_data.json()
-gu_infos = city_air['RealtimeCityAir']['row']
-for gu_info in gu_infos :
-    if gu_info['PM10']<20:
-        print(gu_info['MSRSTE_NM'], gu_info['PM10'])
-
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        # 쿠키에서 token_give 가져오기
-        token_receive = request.cookies.get(COOKIE_KEY)
-        print('token_receive :', token_receive)
-
-        if token_receive is None:
-            # token이 없는 경우
-            return redirect(url_for('login'))
-
-        try:
-            # 전달받은 token이 위조되었는지 확인 (단방향이기 때문에 비밀번호와 마찬가지로 해쉬처리하여 동일한지 비교)
-            # SECRET_KEY를 모르면 동일한 해쉬를 만들 수 없음
-            payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        except jwt.InvalidTokenError:
-            # 토큰 없거나 만료되었거나 올바르지 않은 경우 로그인 페이지로 이동
-            return redirect(url_for('login'))
-
-        # flask 에서 쓰는 변수
-        # g는 각각의 request 내에서만 값이 유효한 스레드 로컬 변수입니다.
-        # 사용자의 요청이 동시에 들어오더라도 각각의 request 내에서만 g 객체가 유효하기 때문에 사용자 ID를 저장해도 문제가 없습니다.
-        g.user = db.user.find_one({'id': payload["id"]})
-
-        # 로그인 성공시 다음 함수 실행
-        return f(*args, **kwargs)
-
-    return decorated_function
+#네이버 지도
+#지역
+#ct > div.search_listview._content._ctList > ul > li:nth-child(1) > div.item_info > div.item_info_inn > div > a
+#한식
+#ct > div.search_listview._content._ctList > ul > li:nth-child(1) > div.item_info > a.a_item.a_item_distance._linkSiteview > div > em
+items= soup.select('ct > div.search_listview._content._ctList > ul > li > div.item_info')
+# 술집명 > a.a_item.a_item_distance._linkSiteview > div
+# 주종 및 테마 > a.a_item.a_item_distance._linkSiteview > div > em
 
 
-#################################
-# HTML 응답 API
-#################################
+#네이버 api 를 사용하기 위함!
+headers = {
+    'X-Naver-Client-Id': 'PziqS0nkbZr4wh0nTBQ4',
+    'X-Naver-Client-Secret': 'PziqS0nkbZr4wh0nTBQ4',
+}
 
+for pub in items:
+    a_tag=pub.select_one('div.item_info_inn > div > a')
+    if a_tag is None:
+        pubName = pub.text
+        print(a_tag.text)
+
+result = data.json()
+
+#html 주기
 @app.route('/')
-@login_required
 def home():
-    return render_template('home.html', user=g.user)
+    return render_template('index.html');
 
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
+#클라이언트로부터 데이터 받기
 
 
-@app.route('/register')
-def register():
-    return render_template('register.html')
 
 
-#################################
-# JSON 응답 API
-#################################
+## API 역할을 하는 부분
+@app.route('/test', methods=['GET'])
+def test_get():
+    category_region_receive = request.args.get('category_region_give')
+    print(category_region_receive)
+    return jsonify({'result': 'success', 'msg': '이 요청은 GET!'})
 
-# 회원가입
-
-@app.route('/api/register', methods=['POST'])
-def api_register():
-    id_receive = request.form.get['id_give']
-    pw_receive = request.form.get['pw_give']
-    nickname_receive = request.form.get['nickname_give']
-
-    # id 중복 확인
-    user = db.user.find_one({'id': id_receive})
-    if user is not None:
-        return jsonify({'result': 'fail', 'msg': '아이디가 중복되었습니다 😅'})
-
-    # pw를 sha256 방법(단방향)으로 암호화
-    # 개인정보보호법상 암호화 해줘야 함.-단방향이면 반대로 풀 수 없는 것
-
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
-
-    return jsonify({'result': 'success', 'msg': '🎉 회원 가입을 축하합니다 🎉'})
+## API 역할을 하는 부분
+@app.route('/test', methods=['POST'])
+def test_post():
+    category_region_receive = request.form['category_region_give']
+    print(category_region_receive)
+    return jsonify({'result': 'success', 'msg': '이 요청은 POST!'})
 
 
-# 로그인
-@app.route('/api/login', methods=['POST'])
-def api_login():
-    id_receive = request.form['id_give']
-    pw_receive = request.form['pw_give']
 
-    # pw를 sha256 방법(단방향)으로 암호화
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-
-    # id, 암호화된 pw을 가지고 해당 유저를 찾기
-    user = db.user.find_one({'id': id_receive, 'pw': pw_hash})
-
-    if user is not None:
-        # jwt 토큰 발급
-        payload = {
-            'id': user['id'],  # user id
-            'exp': datetime.utcnow() + timedelta(seconds=10)  # 만료 시간 (10초 뒤 만료)
-        }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-        print(f'token : {token}')
-        res = make_response(jsonify({'result': 'success', 'msg': f'{user["nick"]}님 안녕하세요 🙇🏻‍♂️'}))
-
-        # set cookie
-        res.set_cookie(COOKIE_KEY, token)
-        # 쿠키 보는 법 : 검사에서 application 에서 cookies 있음
-        return res
-    else:
-        return jsonify({'result': 'fail', 'msg': '아이디와 비밀번호를 확인해주세요 😓'})
-
-
-# 로그아웃
-@app.route('/api/logout', methods=['POST'])
-def api_logout():
-    res = make_response(jsonify({'result': 'success', 'msg': '로그아웃 👋'}))
-
-    # cookie 삭제
-    res.delete_cookie(COOKIE_KEY)
-    return res
-
+# 출력 잘 되는지 확인한 부분
+def hello_world():
+    return 'Hello World';
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+
+
